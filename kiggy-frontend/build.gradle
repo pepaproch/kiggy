@@ -1,0 +1,42 @@
+
+
+buildscript {
+    ext {
+        kotlinVersion = '1.2.71'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+    }
+}
+
+
+
+
+group 'com.pepaproch.kiggy'
+version '1.0-SNAPSHOT'
+
+// apply plugin
+apply plugin: 'org.jetbrains.kotlin.frontend'
+
+// apply kotlin2js
+apply plugin: 'kotlin2js'
+
+repositories {
+    mavenCentral()
+}
+
+compileKotlin2Js.kotlinOptions.sourceMap = true
+compileKotlin2Js.kotlinOptions.outputFile = "${projectDir}/web/js/app.js"
+compileKotlin2Js.kotlinOptions.suppressWarnings = true
+compileKotlin2Js.kotlinOptions.verbose = true
+
+
+
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js"
+    testCompile "org.jetbrains.kotlin:kotlin-test-js"
+}
