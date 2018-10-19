@@ -2,15 +2,23 @@
 
 buildscript {
     ext {
-        kotlinVersion = '1.2.71'
+        kotlinVersion = 'stable'
     }
     repositories {
+
         mavenCentral()
+        maven {
+            url "https://dl.bintray.com/kotlin/kotlin-eap"
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+        classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.31"
     }
 }
+
+
+
 
 
 
@@ -24,9 +32,25 @@ apply plugin: 'org.jetbrains.kotlin.frontend'
 // apply kotlin2js
 apply plugin: 'kotlin2js'
 
-repositories {
-    mavenCentral()
+
+
+
+kotlinFrontend {
+    downloadNodeJsVersion = '10.12.0' 
+    npm { 
+ 
+        dependency("react", "15.6.1")
+        dependency("react-dom", "15.6.1")
+        dependency("react-router-dom", "4.2.2")
+    }
+    sourceMaps = true 
+    webpackBundle { 
+        bundleName = "main" 
+        contentPath = file('src/main/web') 
+        proxyUrl = "http://localhost:8080" 
+    }
 }
+
 
 compileKotlin2Js.kotlinOptions.sourceMap = true
 compileKotlin2Js.kotlinOptions.outputFile = "${projectDir}/web/js/app.js"
