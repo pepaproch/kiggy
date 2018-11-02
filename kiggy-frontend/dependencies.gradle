@@ -1,0 +1,38 @@
+
+ext {
+    // Common
+    coroutines_version = '0.24.0'
+
+    // JS
+    kotlinx_html_version = '0.6.9'
+    react_version = '16.5.2-pre.57-kotlin-1.2.71'
+    react_dom_version = '16.5.2-pre.57-kotlin-1.2.71'
+    react_router_version = '4.3.1-pre.38-kotlin-1.2.60'
+
+
+
+
+
+    dep = [
+            kotlin_stdlib_common    : "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version",
+            kotlin_stdlib_jre7      : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            kotlin_stdlib_jre8      : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
+            kotlin_stdlib_js           : "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version",
+            coroutines_common          : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version",
+            kotlin_test_common         : ["org.jetbrains.kotlin:kotlin-test-common:$kotlin_version",
+                                          "org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlin_version"],
+
+            // JS
+            kotlin_test_js             : ["org.jetbrains.kotlin:kotlin-test-js:$kotlin_version",
+                                          "org.jetbrains.kotlin:kotlin-test:$kotlin_version"],
+            coroutines_js              : "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$coroutines_version",
+            kotlinx_html               : "org.jetbrains.kotlinx:kotlinx-html-js:$kotlinx_html_version",
+            kotlin_react               : ["org.jetbrains:kotlin-react:$react_version",
+                                          "org.jetbrains:kotlin-react-dom:$react_dom_version",
+                                          "org.jetbrains:kotlin-styled:1.0.0-pre.57-kotlin-1.2.71",
+                                          "org.jetbrains:kotlin-react-router-dom:$react_router_version"],
+
+
+    ]
+
+}

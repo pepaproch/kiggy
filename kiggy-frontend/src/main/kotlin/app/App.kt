@@ -15,7 +15,9 @@ import  kotlinx.coroutines.experimental.launch
 import react.*
 import react.dom.h1
 
-import react.router.dom.browserRouter
+
+
+import react.router.dom.hashRouter
 import react.router.dom.route
 import react.router.dom.switch
 
@@ -26,12 +28,15 @@ interface AppState : RState {
 	var currentPage: String
 }
 
+
+
 interface AppProp : RProps {
 	var initialPage: String
+	var state : dynamic
 }
 
 
-class App(props: AppProp) : RComponent<AppProp, AppState>(props) {
+class App(props: AppProp ) : RComponent<AppProp, AppState>(props) {
 
 
 	private fun togleDrawer(open: Boolean) {
@@ -53,16 +58,16 @@ class App(props: AppProp) : RComponent<AppProp, AppState>(props) {
 
 	override fun AppState.init(props: AppProp) {
 
+
 		drawerOpen = false
 		currentPage = props.initialPage
+
 
 
 	}
 
 	override fun componentDidMount() {
-		launch {
 
-		}
 
 	}
 
@@ -95,7 +100,7 @@ class App(props: AppProp) : RComponent<AppProp, AppState>(props) {
 
 
 		var theme = createMuiTheme(muiO.toJsThemeOptions())
-		browserRouter {
+		hashRouter {
 			MuiThemeProvider(theme) {
 
 				header(opened = state.drawerOpen,
@@ -116,20 +121,23 @@ class App(props: AppProp) : RComponent<AppProp, AppState>(props) {
 
 fun RBuilder.p1() = child(
 		h1 {
-			+"PAGE 0"
+			+"ssssssssPAGE ss0hAAAAA"
 		}
 
 )
 
 fun RBuilder.p2() = child(
 		h1 {
-			+"PAGE 2"
+			+"PAGE QQQQQQQaaQQ2jjo"
 		}
 
 )
 
-fun RBuilder.app() = child(App::class) {
-	attrs.initialPage = "Kotlin React App"
+fun RBuilder.app(state: AppState?) = child(App::class) {
+	attrs.initialPage = "Kotlin React AAsSSSs"
+	state?.let {
+		attrs.state = state
+	}
 }
 
 

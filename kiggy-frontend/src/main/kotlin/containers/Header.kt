@@ -9,7 +9,8 @@ import kotlinx.css.*
 
 
 import react.*
-import styled.*
+import styled.  *
+
 
 import kotlin.reflect.KClass
 
@@ -130,7 +131,7 @@ class Header(props: AppBarrProps) : RComponent<AppBarrProps, RState>(props) {
                            flexGrow = 1.0
                        }
                        pageTitle(props.curentPage)
-                       + "💡"
+
                    }
                     styledDiv {
                         css {

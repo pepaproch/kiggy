@@ -77,7 +77,7 @@ class LeftMenu(props: LeftMenuProps) : RComponent<LeftMenuProps, RState>(props) 
                    MuiListItem {
 
                        MuiListItemText {
-                           attrs { primary = "Heloo" }
+                           attrs { primary = "HAAeloow" }
                        }
                    }
                }

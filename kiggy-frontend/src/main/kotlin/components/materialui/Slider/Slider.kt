@@ -12,7 +12,6 @@ import styled.StyledProps
 external interface SliderProps : StyledProps {
     var component: Component<RProps, RState>?
     var disabled: Boolean?
-    var reverse: Boolean?
     var vertical: Boolean?
     var max: Number?
     var min: Number?

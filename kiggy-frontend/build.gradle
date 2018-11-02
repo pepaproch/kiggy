@@ -1,25 +1,22 @@
-
+apply from: 'dependencies.gradle'
 
 buildscript {
-    ext {
-        kotlinVersion = 'stable'
-    }
-    repositories {
+    ext.kotlin_version = '1.2.61'
 
-        mavenCentral()
+    repositories {
+        jcenter()
+
+
         maven {
             url "https://dl.bintray.com/kotlin/kotlin-eap"
         }
     }
+
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.31"
     }
 }
-
-
-
-
 
 
 
@@ -29,38 +26,74 @@ version '1.0-SNAPSHOT'
 // apply plugin
 apply plugin: 'org.jetbrains.kotlin.frontend'
 
-// apply kotlin2js
-apply plugin: 'kotlin2js'
-
-
-
 
 kotlinFrontend {
-    downloadNodeJsVersion = '10.12.0' 
-    npm { 
- 
-        dependency("react", "15.6.1")
-        dependency("react-dom", "15.6.1")
+    downloadNodeJsVersion = '10.12.0'
+    npm {
+        dependency("react", "16.3.0")
+        dependency("@jetbrains/gen-idea-libs", "^1.0.10")
+        dependency("@jetbrains/kotlin-react", "^16.3.1-pre.27")
+        dependency("react-dom", "16.3.0")
         dependency("react-router-dom", "4.2.2")
+        dependency("@jetbrains/kotlin-css", "^1.0.0-pre.35")
+
+
+
+        dependency("@material-ui/core", "^3.3.2")
+        dependency("@material-ui/icons", "^1.1.0")
+        dependency("@material-ui/lab", "^3.0.0-alpha.22")
+        dependency("inline-style-prefixer", "^4.0.2")
+        dependency("react-quill", "^1.3.1")
+        dependency("styled-components", "^3.3.3")
+
+
     }
-    sourceMaps = true 
-    webpackBundle { 
-        bundleName = "main" 
-        contentPath = file('src/main/web') 
-        proxyUrl = "http://localhost:8080" 
+    sourceMaps = true
+    webpackBundle {
+        bundleName = "main"
+        sourceMapEnabled = true
+        contentPath = file('src/main/resources/public')
+        publicPath = "/"  // web prefix
+        host = "localhost" // dev server host
+        port = 8088   // dev server port
+        proxyUrl = "localhost"
+        stats = "verbose"  // log level
+        mode = 'development'
     }
 }
 
+repositories {
+    maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
+    maven { url "https://kotlin.bintray.com/kotlinx" }
+    maven { url 'https://maven.google.com' }
+    maven { url 'https://jitpack.io' }
+    maven { url "http://dl.bintray.com/kotlin/kotlin-dev" }
+    maven { url "http://dl.bintray.com/kotlinx/kotlinx" }
+    maven { url "http://dl.bintray.com/hypnosphi/kotlin-wrappers" }
+    maven { url "http://dl.bintray.com/hypnosphi/kotlin-js-wrappers" }
+    maven { url "https://kotlin.bintray.com/kotlin-js-wrappers/" }
+    mavenCentral()
+    jcenter()
+}
 
-compileKotlin2Js.kotlinOptions.sourceMap = true
-compileKotlin2Js.kotlinOptions.outputFile = "${projectDir}/web/js/app.js"
-compileKotlin2Js.kotlinOptions.suppressWarnings = true
-compileKotlin2Js.kotlinOptions.verbose = true
-
-
-
+// apply kotlin2js
+apply plugin: 'kotlin2js'
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-js"
-    testCompile "org.jetbrains.kotlin:kotlin-test-js"
+
+    compile dep.kotlin_stdlib_js
+    compile(dep.kotlinx_html) { force = true }
+    compile dep.kotlin_react
+    compile dep.coroutines_js
+    compile dep.kotlin_test_js
+}
+
+// configure kotlin compiler
+compileKotlin2Js {
+
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/js/${project.name}.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.moduleKind = 'commonjs'
+    kotlinOptions.main = "call"
 }
